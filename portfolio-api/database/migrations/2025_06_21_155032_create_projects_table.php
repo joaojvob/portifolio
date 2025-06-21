@@ -14,13 +14,12 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('subtitle');
+            $table->string('subtitle')->nullable();
             $table->text('description');
-            $table->string('image_url'); // URL da imagem do projeto
-            $table->string('project_url')->nullable(); // Link para o projeto online
-            $table->string('repo_url')->nullable(); // Link para o repositório
-            $table->json('technologies'); // Lista de tecnologias usadas
-            $table->boolean('is_tcc')->default(false); // Para identificar o TCC
+            $table->string('image_url');  
+            $table->string('project_url')->nullable();  
+            $table->string('repo_url')->nullable(); 
+            $table->boolean('is_tcc')->default(false);
             $table->timestamps();
         });
     }

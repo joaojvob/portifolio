@@ -28,6 +28,18 @@
   color: #61dafb;
 }
 
+.input {
+  @apply w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400;
+}
+
+.btn {
+  @apply bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition;
+}
+
+.btn-primary {
+  @apply bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition font-semibold;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

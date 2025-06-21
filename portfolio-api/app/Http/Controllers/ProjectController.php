@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Technology;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -16,21 +17,38 @@ class ProjectController extends Controller
         
         return response()->json($projects);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
+ 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title'          => 'required|string|max:255',
+            'subtitle'       => 'nullable|string|max:255',
+            'description'    => 'required|string',
+            'image_url'      => 'required|url',
+            'project_url'    => 'nullable|url',
+            'repo_url'       => 'nullable|url',
+            'is_tcc'         => 'boolean',
+            'technologies'   => 'array',  
+            'technologies.*' => 'string'
+        ]);
+
+        $project = Project::create($validated);
+
+        $technologyIds = [];
+        
+        if (!empty($validated['technologies'])) {
+            foreach ($validated['technologies'] as $techName) {
+                $technology      = Technology::firstOrCreate(['name' => $techName]);
+                $technologyIds[] = $technology->id;
+            }
+
+            $project->technologies()->sync($technologyIds);
+        }
+
+        return response()->json($project->load('technologies'), 201);
     }
 
     /**
@@ -38,15 +56,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Project $project)
-    {
-        //
+        return response()->json($project->load('technologies'));
     }
 
     /**
@@ -54,7 +64,32 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $validated = $request->validate([
+            'title'          => 'string|max:255',
+            'subtitle'       => 'nullable|string|max:255',
+            'description'    => 'string',
+            'image_url'      => 'url',
+            'project_url'    => 'nullable|url',
+            'repo_url'       => 'nullable|url',
+            'is_tcc'         => 'boolean',
+            'technologies'   => 'array',
+            'technologies.*' => 'string'
+        ]);
+
+        $project->update($validated);
+
+        if (isset($validated['technologies'])) {
+            $technologyIds = [];
+
+            foreach ($validated['technologies'] as $techName) {
+                $technology      = Technology::firstOrCreate(['name' => $techName]);
+                $technologyIds[] = $technology->id;
+            }
+
+            $project->technologies()->sync($technologyIds);
+        }
+
+        return response()->json($project->load('technologies'));
     }
 
     /**
@@ -62,6 +97,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->technologies()->detach();
+        $project->delete();
+
+        return response()->json(['message' => 'Projeto deletado com sucesso.']);
     }
 }

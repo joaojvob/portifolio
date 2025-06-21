@@ -11,8 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_technology', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('title');
+            $table->text('bio');
+            $table->string('photo_url');
+            $table->string('linkedin')->nullable();
+            $table->string('github')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

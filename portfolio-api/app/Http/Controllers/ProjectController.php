@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use App\Models\Technology;
+use App\Models\Technology; 
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -13,39 +13,36 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::orderBy('is_tcc', 'desc')->orderBy('created_at', 'desc')->get();
-        
+        $projects = Project::with('technologies')->orderBy('created_at', 'desc')->get();
         return response()->json($projects);
     }
- 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'title'          => 'required|string|max:255',
             'subtitle'       => 'nullable|string|max:255',
             'description'    => 'required|string',
-            'image_url'      => 'required|url',
-            'project_url'    => 'nullable|url',
-            'repo_url'       => 'nullable|url',
+            'image_url'      => 'required|string',
+            'project_url'    => 'nullable|string',
+            'repo_url'       => 'nullable|string',
             'is_tcc'         => 'boolean',
-            'technologies'   => 'array',  
-            'technologies.*' => 'string'
+            'technologies'   => 'sometimes|array',
+            'technologies.*' => 'string|max:50',  
         ]);
 
-        $project = Project::create($validated);
+        $projectData = collect($data)->except('technologies')->toArray();
+        $project     = Project::create($projectData);
 
-        $technologyIds = [];
-        
-        if (!empty($validated['technologies'])) {
-            foreach ($validated['technologies'] as $techName) {
-                $technology      = Technology::firstOrCreate(['name' => $techName]);
-                $technologyIds[] = $technology->id;
+        if (!empty($data['technologies'])) {
+            $techIds = [];
+
+            foreach ($data['technologies'] as $techName) {
+                $technology = Technology::firstOrCreate(['name' => trim($techName)]);
+                $techIds[]  = $technology->id;
             }
 
-            $project->technologies()->sync($technologyIds);
+            $project->technologies()->sync($techIds);
         }
 
         return response()->json($project->load('technologies'), 201);
@@ -64,29 +61,30 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        $validated = $request->validate([
-            'title'          => 'string|max:255',
+        $data = $request->validate([
+            'title'          => 'required|string|max:255',
             'subtitle'       => 'nullable|string|max:255',
-            'description'    => 'string',
-            'image_url'      => 'url',
-            'project_url'    => 'nullable|url',
-            'repo_url'       => 'nullable|url',
+            'description'    => 'required|string',
+            'image_url'      => 'required|string',
+            'project_url'    => 'nullable|string',
+            'repo_url'       => 'nullable|string',
             'is_tcc'         => 'boolean',
-            'technologies'   => 'array',
-            'technologies.*' => 'string'
+            'technologies'   => 'sometimes|array',
+            'technologies.*' => 'string|max:50',
         ]);
 
-        $project->update($validated);
+        $projectData = collect($data)->except('technologies')->toArray();
+        $project->update($projectData);
 
-        if (isset($validated['technologies'])) {
-            $technologyIds = [];
+        if (isset($data['technologies'])) {
+            $techIds = [];
 
-            foreach ($validated['technologies'] as $techName) {
-                $technology      = Technology::firstOrCreate(['name' => $techName]);
-                $technologyIds[] = $technology->id;
+            foreach ($data['technologies'] as $techName) {
+                $technology = Technology::firstOrCreate(['name' => trim($techName)]);
+                $techIds[]  = $technology->id;
             }
-
-            $project->technologies()->sync($technologyIds);
+            
+            $project->technologies()->sync($techIds);
         }
 
         return response()->json($project->load('technologies'));
@@ -100,6 +98,6 @@ class ProjectController extends Controller
         $project->technologies()->detach();
         $project->delete();
 
-        return response()->json(['message' => 'Projeto deletado com sucesso.']);
+        return response()->json(null, 204);
     }
 }

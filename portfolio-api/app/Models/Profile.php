@@ -15,4 +15,5 @@ class Profile extends Model
         'github',
         'email',
     ];
+    public $timestamps = false;
 }

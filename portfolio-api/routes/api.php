@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProjectController; 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +15,13 @@ use App\Http\Controllers\ProjectController;
 |
 */
 
-Route::apiResource('projects', ProjectController::class);
-Route::get('/projects', [ProjectController::class, 'index']);
+// Rotas de Perfil 
 Route::get('/profile', [ProfileController::class, 'show']);
+Route::put('/profile', [ProfileController::class, 'update']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Rotas de Projetos 
+Route::get('/projects', [ProjectController::class, 'index']);
+Route::post('/projects', [ProjectController::class, 'store']);
+Route::get('/projects/{project}', [ProjectController::class, 'show']);
+Route::put('/projects/{project}', [ProjectController::class, 'update']);
+Route::delete('/projects/{project}', [ProjectController::class, 'destroy']);

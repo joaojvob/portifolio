@@ -18,7 +18,7 @@ class ProfileController extends Controller
             'name'       => 'required|string|max:255',
             'title'      => 'required|string|max:255',
             'bio'        => 'required|string',
-            'photo_url'  => 'nullable|string|url',
+            'photo_url'  => 'nullable|',
             'linkedin'   => 'nullable|string|url',
             'github'     => 'nullable|string|url',
             'email'      => 'nullable|email',

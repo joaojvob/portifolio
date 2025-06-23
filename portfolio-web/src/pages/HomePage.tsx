@@ -44,9 +44,10 @@ export default function HomePage() {
     const fetchData = async () => {
       try {
         const [profileRes, projectsRes] = await Promise.all([
-          api.get('/profile'),
-          api.get('/projects'),
+          api.get('/api/profile'),
+          api.get('/api/projects'),
         ]);
+        
         setProfile(profileRes.data);
         setProjects(projectsRes.data);
       } catch (error) {

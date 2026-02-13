@@ -5,21 +5,16 @@ import { NAV_LINKS } from "@/lib/constants";
 import Image from "next/image";
 
 export function Header() {
-
-    const [scrolled, setScrolled] = useState(false);     // true quando o usuário rolou a página para baixo
-    const [hovered, setHovered] = useState(false);       // true quando o mouse está em cima do header
-    const [mobileOpen, setMobileOpen] = useState(false); // true quando o menu hambúrguer está aberto
+    const [scrolled, setScrolled] = useState(false);
+    const [hovered, setHovered] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
 
     useEffect(() => {
         function handleScroll() {
-            // window.scrollY = quantos pixels o usuário já rolou, se rolou mais de 50px, consideramos "scrolled"
             setScrolled(window.scrollY > 50);
         }
 
-        // Adiciona um "ouvinte" (listener) no evento de scroll
         window.addEventListener("scroll", handleScroll);
-
-        // Quando o componente sair da tela, remove o ouvinte para evitar "vazamento de memória" 
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
@@ -27,18 +22,8 @@ export function Header() {
 
     return (
         <header
-            // onMouseEnter/Leave → detectam quando o mouse entra/sai do header
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-        
-            /*
-            * fixed                       → Fica fixo no topo (não sai ao scrollar)
-            * top-0 left-0                → Posição: canto superior esquerdo
-            * w-full                      → Largura 100%
-            * z-50                        → Fica "por cima" de todo o conteúdo
-            * transition-all duration-500 → Transição suave de 500ms
-            * backdrop-blur-md            → Desfoca o fundo atrás (efeito vidro)
-            */
             className={`
                 fixed top-0 left-0 w-full z-50
                 transition-all duration-500 ease-in-out
@@ -46,8 +31,7 @@ export function Header() {
             `}
         >
       
-        <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-            {/* ── LOGO (esquerda) ── */}
+        <nav aria-label="Navegação principal" className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             <a href="#" className={`transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0"} `}>
                 <Image
                     src="/images/logo.jpg"
@@ -59,13 +43,7 @@ export function Header() {
                 />
             </a>
 
-            {/* ── LINKS DE NAVEGAÇÃO (centro — visível só em desktop) ── */}
             <ul
-                /*
-                * hidden md:flex                     → Escondido no celular, flex no desktop (≥768px)
-                * absolute left-1/2 -translate-x-1/2 → Centraliza no meio da tela
-                * gap-8                              → Espaçamento entre os links
-                */
                 className={`
                     hidden md:flex items-center gap-8
                     absolute left-1/2 -translate-x-1/2
@@ -78,11 +56,6 @@ export function Header() {
                     <li key={link.href}>
                         <a
                             href={link.href}
-                            /*
-                            * after:             → Cria um pseudo-elemento abaixo do texto
-                            * after:w-0          → Começa com largura 0 (invisível)
-                            * hover:after:w-full → No hover, cresce para 100%
-                            */
                             className="
                                 text-sm text-[var(--color-muted)]
                                 hover:text-[var(--color-foreground)]
@@ -100,7 +73,6 @@ export function Header() {
                 ))}
             </ul>
 
-            {/* ── BOTÃO HAMBÚRGUER ─────── */}
             <button
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className={`
@@ -111,7 +83,6 @@ export function Header() {
                 `}
                 aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
             >
-                {/*Menu Lateral*/}
                 <span
                     className={`block h-[2px] w-6 bg-[var(--color-foreground)] transition-all duration-300 ${
                     mobileOpen ? "rotate-45 translate-y-2" : ""
@@ -130,7 +101,6 @@ export function Header() {
             </button>
         </nav>
 
-      {/* ── MENU MOBILE */}
         <div
             className={`
                 md:hidden overflow-hidden

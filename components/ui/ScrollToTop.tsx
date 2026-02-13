@@ -15,9 +15,6 @@ export function ScrollToTop() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    /**
-    * The scrollToTop function scrolls the window smoothly to the top position.
-    */
     function scrollToTop() {
         window.scrollTo({
         top: 0,
@@ -29,16 +26,6 @@ export function ScrollToTop() {
         <button
             onClick={scrollToTop}
             aria-label="Voltar ao topo"
-
-            /*
-            *
-            * fixed bottom-8 right-8 → Fixo no canto inferior direito
-            * z-50                   → Por cima de tudo
-            * w-12 h-12 rounded-full → Círculo de 48px
-            * translate-y-4          → Quando invisível, desloca 16px para baixo
-            * translate-y-0          → Quando visível, volta à posição normal
-            * pointer-events-none    → Quando invisível, não intercepta cliques
-            */
             className={`
                 fixed bottom-8 right-8 z-50
                 w-12 h-12 rounded-full
@@ -54,18 +41,6 @@ export function ScrollToTop() {
                 }
             `}
         >
-        {/*
-        * viewBox="0 0 24 24" → Define o "canvas" de 24x24 unidades
-        * strokeWidth={2}     → Espessura da linha
-        * strokeLinecap/Join  → Pontas arredondadas  
-        *
-        * O <path d="..."> desenha a seta:
-        * M12 19  → Move para o ponto (12, 19) — base da seta
-        * L12 5   → Linha reta até (12, 5) — linha vertical para cima
-        * M5 12   → Move para (5, 12) — começo da ponta esquerda
-        * L12 5   → Linha até (12, 5) — diagonal esquerda
-        * L19 12  → Linha até (19, 12) — diagonal direita
-        */}
         <svg
             width={20}
             height={20}

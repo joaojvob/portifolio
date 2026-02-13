@@ -1,7 +1,6 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_NAME = 100;
 const MAX_MESSAGE = 5000;
@@ -18,6 +17,7 @@ function escapeHtml(str: string): string {
 /** Processa o envio do formulário de contato. */
 export async function POST(request: Request) {
     try {
+        const resend = new Resend(process.env.RESEND_API_KEY);
         const { name, email, message } = await request.json();
 
         if (!name || !email || !message) {

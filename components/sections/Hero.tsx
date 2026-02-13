@@ -2,26 +2,23 @@ import { SITE_CONFIG } from "@/lib/constants";
 
 export function Hero() {
   return (
-    <section className="flex flex-col items-center justify-center py-20 px-4 text-center min-h-screen">
-      {/* Badge de status */}
+    <section aria-label="Apresentação" className="flex flex-col items-center justify-center py-20 px-4 text-center min-h-screen">
       <span className="px-3 py-1 text-xs font-medium bg-[var(--color-accent)]/10 text-[var(--color-accent)] rounded-full mb-6 tracking-widest uppercase">
         Disponível para novos projetos
       </span>
 
-      {/* Título Principal — H1 único para SEO */}
-      <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
-        Desenvolvendo experiências <br />
+      <h1 className="text-3xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+        Desenvolvendo experiências{" "}
+        <br className="hidden sm:block" />
         <span className="text-[var(--color-accent)] italic">digitais modernas.</span>
       </h1>
 
-      {/* Bio Curta */}
       <p className="max-w-2xl text-lg text-[var(--color-muted)] mb-10">
         Olá, eu sou o <strong className="text-[var(--color-foreground)]">{SITE_CONFIG.name}</strong>.{" "}
         {SITE_CONFIG.description}
       </p>
 
-      {/* CTAs (Call to Action) */}
-      <div className="flex gap-4">
+      <div className="flex flex-col sm:flex-row gap-4">
         <a
           href="#projects"
           className="bg-[var(--color-accent)] text-[var(--color-background)] px-8 py-3 rounded-lg font-medium hover:brightness-110 transition-all"

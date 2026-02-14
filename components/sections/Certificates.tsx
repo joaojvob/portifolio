@@ -1,62 +1,79 @@
+"use client";
+
 import { CERTIFICATES } from "@/lib/constants";
+import ScrollFloat from "@/components/ui/ScrollFloat";
+import SpotlightCard from "@/components/ui/SpotlightCard";
+import { Award, ExternalLink, FolderOpen } from "lucide-react";
 
 export function Certificates() {
     if (CERTIFICATES.length === 0) {
         return (
             <section id="certificates" className="py-20 px-4 max-w-5xl mx-auto">
-                <h2 className="text-3xl font-bold mb-2">Certificados</h2>
+                <ScrollFloat
+                    containerClassName="text-3xl font-bold mb-2"
+                    textClassName="text-[clamp(1.6rem,4vw,2rem)] leading-[1.5]"
+                >
+                    Certificados
+                </ScrollFloat>
                 <div className="w-12 h-1 bg-[var(--color-accent)] mb-10 rounded-full" />
-                <p className="text-[var(--color-muted)]">Em breve.</p>
+
+                <div className="border border-dashed border-white/10 rounded-xl p-12 text-center">
+                    <FolderOpen className="w-10 h-10 text-[var(--color-accent)]/40 mx-auto mb-4" />
+                    <p className="text-[var(--color-muted)]">
+                        Certificados sendo organizados — em breve!
+                    </p>
+                </div>
             </section>
         );
     }
 
     return (
         <section id="certificates" className="py-20 px-4 max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold mb-2">Certificados</h2>
+            <ScrollFloat
+                containerClassName="text-3xl font-bold mb-2"
+                textClassName="text-[clamp(1.6rem,4vw,2rem)] leading-[1.5]"
+            >
+                Certificados
+            </ScrollFloat>
             <div className="w-12 h-1 bg-[var(--color-accent)] mb-10 rounded-full" />
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="space-y-4">
                 {CERTIFICATES.map((cert) => (
-                    <div
-                        key={cert.title}
-                        className="
-                            bg-[var(--color-surface)] border border-white/5
-                            rounded-xl p-6
-                            hover:border-[var(--color-accent)]/30 transition-colors
-                        "
-                    >
-                        <div className="w-10 h-10 rounded-lg bg-[var(--color-accent)]/10 flex items-center justify-center mb-4">
-                            <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                                <circle cx="12" cy="8" r="6" />
-                                <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
-                            </svg>
+                    <SpotlightCard key={cert.title} className="!p-0">
+                        <div className="flex items-center gap-5 p-5">
+                            <div className="w-12 h-12 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center shrink-0">
+                                <Award className="w-6 h-6 text-[var(--color-accent)]" />
+                            </div>
+
+                            <div className="flex-1 min-w-0">
+                                <h3 className="font-semibold text-base">{cert.title}</h3>
+                                <p className="text-sm text-[var(--color-accent)]">{cert.issuer}</p>
+                            </div>
+
+                            <span className="text-sm text-[var(--color-muted)] shrink-0 hidden sm:block">
+                                {cert.date}
+                            </span>
+
+                            {cert.url && (
+                                <a
+                                    href={cert.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="
+                                        shrink-0 inline-flex items-center gap-1.5
+                                        text-sm px-4 py-2 rounded-lg
+                                        border border-[var(--color-accent)]/20
+                                        text-[var(--color-accent)]
+                                        hover:bg-[var(--color-accent)]/10
+                                        transition-colors
+                                    "
+                                >
+                                    Ver
+                                    <ExternalLink className="w-3.5 h-3.5" />
+                                </a>
+                            )}
                         </div>
-
-                        <h3 className="font-semibold text-lg mb-1">{cert.title}</h3>
-                        <p className="text-sm text-[var(--color-accent)]">{cert.issuer}</p>
-                        <p className="text-sm text-[var(--color-muted)] mt-1">{cert.date}</p>
-
-                        {cert.url && (
-                            <a
-                                href={cert.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="
-                                    inline-flex items-center gap-1 mt-4
-                                    text-sm text-[var(--color-muted)]
-                                    hover:text-[var(--color-accent)] transition-colors
-                                "
-                            >
-                                Ver certificado
-                                <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                                    <polyline points="15 3 21 3 21 9" />
-                                    <line x1="10" y1="14" x2="21" y2="3" />
-                                </svg>
-                            </a>
-                        )}
-                    </div>
+                    </SpotlightCard>
                 ))}
             </div>
         </section>

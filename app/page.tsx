@@ -6,14 +6,14 @@ import { Tcc } from "@/components/sections/Tcc";
 import { Contact } from "@/components/sections/Contact";
 
 export default function Home() {
-  return (
-    <main>
-      <Hero />
-      <About />
-      <Projects />
-      <Certificates />
-      <Tcc />
-      <Contact />
-    </main>
-  );
+    return (
+        <main>
+            <Hero />
+            <About />
+            <Projects />
+            <Tcc />
+            <Certificates />
+            <Contact />
+        </main>
+    );
 }

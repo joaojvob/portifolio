@@ -9,6 +9,7 @@ export const SITE_CONFIG = {
     siteUrl: "",
     location: "Caratinga - MG",
     phone: "(31) 99978-0267",
+    resumeUrl: "https://drive.google.com/file/d/1U7b-3I7jOxNhVOUnA1o5qgdXkC_dGv6B/view?usp=sharing",
 } as const;
 
 export const SOCIAL_LINKS = {
@@ -79,16 +80,40 @@ export const EDUCATION = [
 /**
  * Projetos para exibição no portfólio.
  */
-export const PROJECTS = [
+type Project = {
+    title: string;
+    description: string;
+    tags: string[];
+    github: string;
+    live?: string;
+};
+
+export const PROJECTS: Project[] = [
+    {
+        title: "Gerenciador de Tarefas — App",
+        description:
+        "Aplicativo Flutter para gerenciamento de tarefas integrado a uma API RESTful. Autenticação, CRUD de tarefas com prioridades coloridas, sincronização com backend e interface responsiva com Material 3.",
+        tags: ["Flutter", "Dart", "REST API"],
+        github: "https://github.com/joaojvob/gerenciador-tarefas-app",
+        live: "",
+    },
+    {
+        title: "Gerenciador de Tarefas — API",
+        description:
+        "Backend RESTful em Laravel para o sistema de gerenciamento de tarefas. Autenticação por token, endpoints para CRUD de tarefas, gerenciamento de usuários e atualização de perfil.",
+        tags: ["Laravel", "PHP", "MySQL", "REST API"],
+        github: "https://github.com/joaojvob/gerenciador-tarefas",
+        live: "",
+    },
     {
         title: "Portfólio Pessoal",
         description:
-        "Site pessoal construído com Next.js, TypeScript e Tailwind CSS. Tema Interstellar com design responsivo.",
+        "Site pessoal construído com Next.js, TypeScript e Tailwind CSS. Tema Interstellar com Galaxy WebGL, animações GSAP e componentes interativos.",
         tags: ["Next.js", "TypeScript", "Tailwind CSS"],
         github: "https://github.com/joaojvob/portifolio",
         live: "#",
     },
-] as const;
+];
 
 /**
  * Certificados e certificações profissionais.
@@ -101,20 +126,38 @@ export type Certificate = {
 };
 
 export const CERTIFICATES: Certificate[] = [
-    // Adicionar certificados, seguir o modelo:
-    // {
-    //     title: "Nome do Certificado",
-    //     issuer: "Instituição ou Plataforma",
-    //     date: "2024",
-    //     url: "https://link-do-certificado.com",
-    // },
+    {
+        title: "Pós-graduação em Engenharia de Software",
+        issuer: "Doctum — Teófilo Otoni/MG",
+        date: "2024",
+        url: "/docs/cetificado_pos.pdf",
+    },
+    {
+        title: "Bacharel em Ciência da Computação",
+        issuer: "Doctum — Caratinga/MG",
+        date: "2023",
+        url: "/docs/diploma.pdf",
+    },
+    {
+        title: "Laravel 10 do Básico ao Avançado",
+        issuer: "Udemy",
+        date: "2023",
+        url: "https://udemy-certificate.s3.amazonaws.com/pdf/UC-4478900d-40fe-43be-aced-0bbe836f5625.pdf",
+    },
 ];
 
 /**
  * Informações do TCC.
  */
 export const TCC = {
-    title: "",
-    summary: "",
-    downloadUrl: "",
+    title: "Estudo de Caso do Sistema Acadêmico ADX para a Verificação das Funcionalidades e Identificação da Adequação Perante a LGPD",
+    authors: [
+        "Augusto César Moreira Gonçalves",
+        "João Julio Veriato Oliveira Benigno",
+        "Msc. Elias de Souza Gonçalves",
+    ],
+    summary:
+        "Análise da adequação do sistema acadêmico ADX à Lei Geral de Proteção de Dados (LGPD), verificando funcionalidades, tratamento de dados pessoais e conformidade legal no contexto educacional.",
+    downloadUrl:
+        "https://docs.google.com/document/d/1-1k9mQFCayptF0m_ptBmndl42QWeIc-A-iK_hSzX_Xc/edit?usp=sharing",
 } as const;

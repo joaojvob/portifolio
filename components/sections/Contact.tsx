@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import { SOCIAL_LINKS, SITE_CONFIG } from "@/lib/constants";
+import ScrollFloat from "@/components/ui/ScrollFloat";
 
 export function Contact() {
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -44,7 +45,12 @@ export function Contact() {
 
     return (
         <section id="contact" className="py-20 px-4 max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold mb-2">Contato</h2>
+            <ScrollFloat
+                containerClassName="text-3xl font-bold mb-2"
+                textClassName="text-[clamp(1.6rem,4vw,2rem)] leading-[1.5]"
+            >
+                Contato
+            </ScrollFloat>
             <div className="w-12 h-1 bg-[var(--color-accent)] mb-10 rounded-full" />
 
             <div className="grid md:grid-cols-2 gap-12">

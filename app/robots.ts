@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
             userAgent: "*",
             allow: "/",
         },
-        sitemap: "https://joaojulio.dev/sitemap.xml",
+        sitemap: "https://portifolio-jjvob.vercel.app/sitemap.xml",
     };
 }

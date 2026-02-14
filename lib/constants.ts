@@ -6,7 +6,7 @@ export const SITE_CONFIG = {
     name: "João Julio",
     role: "Desenvolvedor de Software",
     description: "Desenvolvedor de Software com experiência em soluções back-end robustas no ecossistema PHP com Laravel e na criação de aplicações móveis multiplataforma com Flutter.",
-    siteUrl: "",
+    siteUrl: "https://portifolio-jjvob.vercel.app",
     location: "Caratinga - MG",
     phone: "(31) 99978-0267",
     resumeUrl: "https://drive.google.com/file/d/1U7b-3I7jOxNhVOUnA1o5qgdXkC_dGv6B/view?usp=sharing",

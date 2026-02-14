@@ -90,6 +90,14 @@ type Project = {
 
 export const PROJECTS: Project[] = [
     {
+        title: "TruckFlow API — Gestão de Frotas",
+        description:
+            "API REST multi-tenant para gestão de frotas e logística rodoviária. Backend SaaS em Laravel 12, PostgreSQL + PostGIS, projetado para ser consumido por aplicações React (web) e Flutter (mobile).",
+        tags: ["Laravel", "PostgreSQL", "PostGIS", "REST API", "SaaS"],
+        github: "https://github.com/joaojvob/truckflow-api",
+        live: "",
+    },
+    {
         title: "Gerenciador de Tarefas — App",
         description:
         "Aplicativo Flutter para gerenciamento de tarefas integrado a uma API RESTful. Autenticação, CRUD de tarefas com prioridades coloridas, sincronização com backend e interface responsiva com Material 3.",
@@ -105,6 +113,7 @@ export const PROJECTS: Project[] = [
         github: "https://github.com/joaojvob/gerenciador-tarefas",
         live: "",
     },
+    /**
     {
         title: "Portfólio Pessoal",
         description:
@@ -113,14 +122,7 @@ export const PROJECTS: Project[] = [
         github: "https://github.com/joaojvob/portifolio",
         live: "#",
     },
-    {
-        title: "TruckFlow API — Gestão de Frotas",
-        description:
-            "API REST multi-tenant para gestão de frotas e logística rodoviária. Backend SaaS em Laravel 12, PostgreSQL + PostGIS, projetado para ser consumido por aplicações React (web) e Flutter (mobile).",
-        tags: ["Laravel", "PostgreSQL", "PostGIS", "REST API", "SaaS"],
-        github: "https://github.com/joaojvob/truckflow-api",
-        live: "",
-    },
+    */
 ];
 
 /**

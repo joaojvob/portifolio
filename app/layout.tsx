@@ -4,6 +4,7 @@ import { SITE_CONFIG } from "@/lib/constants";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
+import { GalaxyBackground } from "@/components/ui/GalaxyBackground";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -34,6 +35,7 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
+                <GalaxyBackground />
                 <Header />
                 {children}
                 <Footer />
